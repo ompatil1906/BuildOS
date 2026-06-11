@@ -78,11 +78,15 @@ async def unhandled_error_handler(request: Request, exc: Exception):
 
 @app.on_event("startup")
 def on_startup() -> None:
-    Base.metadata.create_all(bind=engine)
-    if settings.app_env != "production":
+    production_issues = settings.validate_production()
+    if production_issues:
+        raise RuntimeError("BuildOS production configuration is invalid: " + "; ".join(production_issues))
+    if settings.auto_create_tables:
+        Base.metadata.create_all(bind=engine)
+    if settings.enable_demo_seed and settings.app_env != "production":
         with SessionLocal() as db:
             seed_demo_data(db)
-    logger.info("buildos_api_started", env=settings.app_env)
+    logger.info("buildos_api_started", env=settings.app_env, demo_seed=settings.enable_demo_seed)
 
 
 @app.get("/")
@@ -105,4 +109,3 @@ def metrics():
 
 
 app.include_router(router)
-

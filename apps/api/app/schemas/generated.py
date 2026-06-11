@@ -68,8 +68,10 @@ class GitHubConnectRequest(BaseModel):
 class GitHubActionRequest(BaseModel):
     repo_name: str | None = None
     branch_name: str = "buildos/generated-mvp"
-    demo_mode: bool = True
+    demo_mode: bool = False
     approval_id: str | None = None
+    private: bool = True
+    commit_message: str = "BuildOS generated application workspace"
 
 
 class BuildReportResponse(BaseModel):
@@ -92,4 +94,3 @@ class FileUpdate(BaseModel):
 class TaskUpdate(BaseModel):
     status: str | None = None
     priority: str | None = None
-

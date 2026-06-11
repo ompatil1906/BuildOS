@@ -12,7 +12,9 @@ class Settings(BaseSettings):
     jwt_secret: str = "replace-this-development-secret"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24
-    ai_provider: str = "demo"
+    ai_provider: str = "local"
+    enable_demo_seed: bool = False
+    auto_create_tables: bool = True
     gemini_api_key: str | None = None
     openai_api_key: str | None = None
     github_client_id: str | None = None
@@ -27,6 +29,21 @@ class Settings(BaseSettings):
     def allowed_origins(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
+    def validate_production(self) -> list[str]:
+        issues: list[str] = []
+        if self.app_env == "production":
+            if self.jwt_secret in {"replace-this-development-secret", "change-me", ""} or len(self.jwt_secret) < 32:
+                issues.append("JWT_SECRET must be at least 32 characters and not use the development default.")
+            if self.encryption_key in {"replace-with-32-byte-dev-key", "change-me", ""} or len(self.encryption_key) < 32:
+                issues.append("ENCRYPTION_KEY must be at least 32 characters and not use the development default.")
+            if self.database_url.startswith("sqlite"):
+                issues.append("Production must use PostgreSQL, not sqlite.")
+            if "*" in self.allowed_origins:
+                issues.append("CORS_ORIGINS cannot include '*' in production.")
+            if self.enable_demo_seed:
+                issues.append("ENABLE_DEMO_SEED must be false in production.")
+        return issues
+
 
 @lru_cache
 def get_settings() -> Settings:
@@ -34,4 +51,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-
