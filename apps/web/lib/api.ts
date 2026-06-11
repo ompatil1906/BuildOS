@@ -57,7 +57,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return payload.data;
 }
 
-export async function login(email = "demo@buildos.dev", password = "buildos-demo") {
+export async function login(email: string, password: string) {
   const data = await request<{ access_token: string; user: User }>("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password })
@@ -98,9 +98,15 @@ export const getBuildReports = (id: string) => request<BuildReport[]>(`/projects
 export const getAuditLogs = () => request<AuditLog[]>("/audit-logs");
 export const getProjectAuditLogs = (id: string) => request<AuditLog[]>(`/projects/${id}/audit-logs`);
 export const getGitHubStatus = (id: string) => request<Record<string, unknown>>(`/projects/${id}/github/status`);
-export const createGitHubPR = (id: string, approvalId: string) =>
+export const connectGitHub = (id: string, input: { github_username: string; access_token: string }) =>
+  request<Record<string, unknown>>(`/projects/${id}/github/connect`, { method: "POST", body: JSON.stringify(input) });
+export const createGitHubRepo = (id: string, input: { approval_id: string; repo_name: string; branch_name: string; private: boolean }) =>
+  request<Record<string, unknown>>(`/projects/${id}/github/create-repo`, {
+    method: "POST",
+    body: JSON.stringify({ ...input, dry_run: false })
+  });
+export const createGitHubPR = (id: string, input: { approval_id: string; repo_name: string; branch_name: string }) =>
   request<Record<string, unknown>>(`/projects/${id}/github/create-pr`, {
     method: "POST",
-    body: JSON.stringify({ approval_id: approvalId, demo_mode: true, branch_name: "buildos/generated-mvp" })
+    body: JSON.stringify({ ...input, dry_run: false })
   });
-

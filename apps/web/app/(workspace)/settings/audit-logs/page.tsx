@@ -27,11 +27,10 @@ export default function AuditLogsPage() {
               </div>
             ))
           ) : (
-            <EmptyState title="No audit logs loaded" description="Login with the demo account or perform a project action to create audit events." />
+            <EmptyState title="No audit logs loaded" description="Perform a project, approval, GitHub, or build action to create audit events." />
           )}
         </CardContent>
       </Card>
     </>
   );
 }
-

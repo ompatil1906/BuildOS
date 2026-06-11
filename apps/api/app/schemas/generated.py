@@ -62,13 +62,13 @@ class ApprovalCreate(BaseModel):
 
 class GitHubConnectRequest(BaseModel):
     github_username: str = Field(min_length=1, max_length=160)
-    access_token: str = Field(default="", description="Stored encrypted in production; placeholder-safe in MVP.")
+    access_token: str = Field(default="", description="Stored encrypted server-side.")
 
 
 class GitHubActionRequest(BaseModel):
     repo_name: str | None = None
     branch_name: str = "buildos/generated-mvp"
-    demo_mode: bool = False
+    dry_run: bool = False
     approval_id: str | None = None
     private: bool = True
     commit_message: str = "BuildOS generated application workspace"

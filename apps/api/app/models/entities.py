@@ -199,7 +199,7 @@ class GitHubRepository(Base):
     repo_url: Mapped[str] = mapped_column(String(500), nullable=False)
     branch_name: Mapped[str] = mapped_column(String(200), nullable=False)
     pr_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
-    status: Mapped[str] = mapped_column(String(80), default="simulated", nullable=False)
+    status: Mapped[str] = mapped_column(String(80), default="pending", nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now, nullable=False)
 
 
@@ -251,4 +251,3 @@ class UsageCost(Base):
     output_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     estimated_cost: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now, nullable=False)
-

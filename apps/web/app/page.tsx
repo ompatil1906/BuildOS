@@ -55,7 +55,7 @@ const capabilityRows = [
 ];
 
 const useCases = [
-  "Founding engineer portfolio demos",
+  "Founding engineer product reviews",
   "AI engineer agent orchestration projects",
   "Platform and DevOps interview walkthroughs",
   "Internal innovation prototyping",
@@ -163,7 +163,7 @@ export default function LandingPage() {
                   <span className="h-3 w-3 rounded-full bg-[#d6a742]" />
                   <span className="h-3 w-3 rounded-full bg-[#3fb280]" />
                 </div>
-                <span className="text-xs text-slate-400">SupportFlow AI factory run</span>
+                <span className="text-xs text-slate-400">Production workspace factory run</span>
               </div>
               <div className="grid gap-3 p-4 lg:grid-cols-[0.92fr_1.08fr]">
                 <div ref={pipelineRef} className="space-y-3">
@@ -202,7 +202,7 @@ export default function LandingPage() {
   intake -> prd -> architecture
   planner -> code agents
   security -> reviewer
-  approval -> github.pr.demo`}
+  approval -> github.pr.create`}
                   </pre>
                 </div>
               </div>
@@ -246,10 +246,10 @@ export default function LandingPage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-200">Platform capabilities</p>
-              <h2 className="serif-display mt-4 text-4xl font-semibold text-[#f7efe3] md:text-5xl">Everything needed for an interview-ready AI engineering demo.</h2>
+              <h2 className="serif-display mt-4 text-4xl font-semibold text-[#f7efe3] md:text-5xl">Everything needed for a production-review AI engineering platform.</h2>
             </div>
             <p className="max-w-md text-sm leading-6 text-slate-400">
-              Built to demonstrate product thinking, backend architecture, agent safety, DevOps maturity, and a polished full-stack experience.
+              Built to show product thinking, backend architecture, agent safety, DevOps maturity, and a polished full-stack experience.
             </p>
           </div>
           <div className="mt-10 overflow-hidden rounded-lg border border-white/10">
@@ -272,7 +272,7 @@ export default function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7c5f2a]">Governance built in</p>
             <h2 className="serif-display mt-4 text-4xl font-semibold leading-tight md:text-5xl">AI autonomy with a professional control surface.</h2>
             <p className="mt-5 max-w-2xl leading-8 text-slate-700">
-              BuildOS treats generated code and external tools as high-leverage operations that need context, traceability, and approval. The MVP includes prompt-injection checks, a tool allowlist, safe secret handling placeholders, and audit logs from the beginning.
+              BuildOS treats generated code and external tools as high-leverage operations that need context, traceability, and approval. The MVP includes prompt-injection checks, a tool allowlist, encrypted provider-token storage, and audit logs from the beginning.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {useCases.map((useCase) => (
@@ -308,7 +308,7 @@ export default function LandingPage() {
       <section className="bg-[#111318] px-6 py-20 text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-lg border border-white/10 bg-white/[0.045] p-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Demo prompt</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Example prompt</p>
             <h2 className="serif-display mt-3 text-3xl font-semibold md:text-4xl">Build an AI customer support ticket SaaS.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
               Login, dashboard, ticket management, AI priority detection, admin panel, analytics, GitHub Actions, and Docker deployment.

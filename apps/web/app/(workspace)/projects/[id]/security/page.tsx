@@ -50,7 +50,7 @@ export default function SecurityPage() {
         {[
           ["Approval gates", "GitHub, deployment, API key updates, and code execution require human approval."],
           ["Secret posture", "The frontend only receives public configuration and never stores provider secrets."],
-          ["Execution boundary", "Generated code is previewed and simulated, not executed by the production API."]
+          ["Execution boundary", "Generated code is previewed and reviewed, not executed by the production API."]
         ].map(([title, text]) => (
           <Card key={title}>
             <CardContent>

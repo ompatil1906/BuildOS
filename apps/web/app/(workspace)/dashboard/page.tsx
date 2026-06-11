@@ -24,7 +24,7 @@ export default function DashboardPage() {
     { label: "GitHub action", status: "gated", detail: "Approval required before PR simulation" }
   ];
   const risks = [
-    "Generated tests are placeholders until a real sandbox runner is enabled.",
+    "Generated tests should be expanded before production release.",
     "Provider-backed AI calls require server-side API keys.",
     "GitHub write actions remain blocked without approval records."
   ];
@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {[
-          { label: "Total projects", value: totalProjects, icon: Boxes, note: "Seed demo included" },
+          { label: "Total projects", value: totalProjects, icon: Boxes, note: "Created by your workspace" },
           { label: "Agent runs", value: latest ? "11+" : 0, icon: Activity, note: "Traceable by project" },
           { label: "Generated files", value: latest ? "11" : 0, icon: FileCode2, note: "Starter app bundle" },
           { label: "Build reports", value: latest ? "1" : 0, icon: TestTube2, note: "Simulated pipeline" },
@@ -71,7 +71,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {projects.isError ? (
-              <p className="text-sm text-muted-foreground">Login with the demo account to load projects.</p>
+              <p className="text-sm text-muted-foreground">Login or create an account to load projects.</p>
             ) : latest ? (
               <div className="space-y-4">
                 <div className="flex items-start justify-between gap-4">
@@ -84,7 +84,7 @@ export default function DashboardPage() {
                 <div className="grid gap-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden />
-                    PRD, architecture, tasks, code, and build report are seeded for demo.
+                    Generate PRD, architecture, tasks, code, and build reports from your own projects.
                   </div>
                   <div className="flex items-center gap-2">
                     <GitPullRequestArrow className="h-4 w-4 text-amber-500" aria-hidden />

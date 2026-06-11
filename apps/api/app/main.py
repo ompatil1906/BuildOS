@@ -13,8 +13,7 @@ from app.core.config import settings
 from app.core.logging import configure_logging
 from app.core.responses import BuildOSError, error_response, success_response
 from app.db.base import Base
-from app.db.seed import seed_demo_data
-from app.db.session import SessionLocal, engine
+from app.db.session import engine
 
 configure_logging()
 logger = structlog.get_logger()
@@ -83,10 +82,7 @@ def on_startup() -> None:
         raise RuntimeError("BuildOS production configuration is invalid: " + "; ".join(production_issues))
     if settings.auto_create_tables:
         Base.metadata.create_all(bind=engine)
-    if settings.enable_demo_seed and settings.app_env != "production":
-        with SessionLocal() as db:
-            seed_demo_data(db)
-    logger.info("buildos_api_started", env=settings.app_env, demo_seed=settings.enable_demo_seed)
+    logger.info("buildos_api_started", env=settings.app_env)
 
 
 @app.get("/")

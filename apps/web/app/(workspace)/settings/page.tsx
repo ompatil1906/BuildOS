@@ -11,7 +11,7 @@ export default function SettingsPage() {
   const me = useQuery({ queryKey: ["me"], queryFn: getMe, retry: false });
   return (
     <>
-      <PageHeader title="Settings" description="Workspace profile, demo-mode safety posture, and product configuration." />
+      <PageHeader title="Settings" description="Workspace profile, safety posture, and production configuration." />
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>

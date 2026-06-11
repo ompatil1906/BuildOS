@@ -33,7 +33,7 @@ const architectureBullets = [
   "FastAPI backend with Pydantic validation and JWT auth",
   "PostgreSQL with pgvector-ready project memory",
   "Agent run and step tracing in the database",
-  "Approval-gated GitHub demo mode",
+  "Approval-gated GitHub provider workflow",
   "Docker Compose and GitHub Actions pipeline"
 ];
 
@@ -58,7 +58,7 @@ export default function DocsPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7c5f2a]">Product documentation</p>
           <h1 className="serif-display mt-5 max-w-4xl text-5xl font-semibold leading-tight md:text-6xl">A complete walkthrough of the autonomous software factory.</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            Use this guide to demo BuildOS as a full-stack AI platform: from prompt intake to generated artifacts, approval gates, simulated CI/CD, and security posture.
+            Use this guide to operate BuildOS as a full-stack AI platform: from prompt intake to generated artifacts, approval gates, CI/CD readiness, and security posture.
           </p>
         </div>
       </section>
@@ -66,7 +66,7 @@ export default function DocsPage() {
       <section className="mx-auto grid max-w-7xl gap-6 px-6 py-16 lg:grid-cols-[0.72fr_1.28fr]">
         <aside className="h-fit rounded-lg border border-[#d8ccb3] bg-white p-6">
           <BookOpenText className="h-6 w-6 text-[#1b4d89]" aria-hidden />
-          <h2 className="mt-5 text-xl font-semibold">Demo checklist</h2>
+          <h2 className="mt-5 text-xl font-semibold">Production checklist</h2>
           <div className="mt-5 space-y-3">
             {architectureBullets.map((item) => (
               <div key={item} className="flex items-start gap-3 text-sm leading-6 text-slate-700">

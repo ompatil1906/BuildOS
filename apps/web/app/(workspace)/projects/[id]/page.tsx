@@ -127,7 +127,7 @@ export default function ProjectOverviewPage() {
               BuildOS treats this project as a full product dossier: the idea becomes requirements, requirements become architecture, architecture becomes tasks, and tasks become generated implementation files.
             </p>
             <p>
-              Every agent run is saved for review, and the GitHub integration stays in demo mode unless a human approval record authorizes the next step.
+              Every agent run is saved for review, and GitHub writes require a connected provider token plus a human approval record.
             </p>
           </CardContent>
         </Card>

@@ -11,8 +11,8 @@ import { login } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("demo@buildos.dev");
-  const [password, setPassword] = useState("buildos-demo");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(event: React.FormEvent) {
@@ -36,7 +36,7 @@ export default function LoginPage() {
           BuildOS
         </Link>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Secure demo workspace</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Secure workspace</p>
           <h1 className="serif-display mt-5 max-w-xl text-5xl font-semibold leading-tight text-[#f7efe3]">Return to the software factory.</h1>
           <p className="mt-5 max-w-xl leading-8 text-slate-300">
             Inspect generated PRDs, architecture, code, approval records, build reports, and audit trails from one operating surface.
@@ -44,14 +44,14 @@ export default function LoginPage() {
         </div>
         <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.045] p-4 text-sm text-slate-300">
           <ShieldCheck className="h-5 w-5 text-emerald-300" aria-hidden />
-          Demo actions stay approval-gated.
+          External actions stay approval-gated.
         </div>
       </section>
       <section className="grid place-items-center">
       <form onSubmit={onSubmit} className="w-full max-w-md rounded-lg border border-white/10 bg-white p-7 text-[#171923] shadow-2xl">
         <Link href="/" className="text-sm text-slate-500">BuildOS</Link>
         <h1 className="serif-display mt-6 text-3xl font-semibold">Login</h1>
-        <p className="mt-2 text-sm leading-6 text-slate-600">Use the seeded demo account to open the complete SupportFlow AI workspace.</p>
+        <p className="mt-2 text-sm leading-6 text-slate-600">Sign in with your BuildOS account to manage projects, approvals, generated files, and build reports.</p>
         <div className="mt-6 space-y-3">
           <Input value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" />
           <Input value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" type="password" />

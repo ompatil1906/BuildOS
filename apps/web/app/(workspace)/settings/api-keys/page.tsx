@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export default function ApiKeysPage() {
   return (
     <>
-      <PageHeader title="API keys" description="Safe storage placeholders for AI and GitHub providers. Secrets are never exposed to frontend code." />
+      <PageHeader title="API keys" description="Provider credentials are handled server-side. Secrets are never exposed to frontend code." />
       <Card>
         <CardHeader>
           <CardTitle>Provider keys</CardTitle>
@@ -30,4 +30,3 @@ export default function ApiKeysPage() {
     </>
   );
 }
-

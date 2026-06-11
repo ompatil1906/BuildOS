@@ -32,13 +32,13 @@ export default function NewProjectPage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: "SupportFlow AI",
-      idea: "AI customer support ticket SaaS for small ecommerce stores.",
-      target_users: "Small ecommerce operators and support teams",
+      name: "",
+      idea: "",
+      target_users: "",
       preferred_stack: "Next.js, FastAPI, PostgreSQL",
-      required_features: "Login, dashboard, ticket management, AI priority detection, admin panel, analytics, deployment pipeline",
+      required_features: "",
       deployment_preference: "Docker Compose with GitHub Actions",
-      ai_features_required: "AI priority detection, ticket summarization",
+      ai_features_required: "",
       complexity: "standard"
     }
   });
@@ -66,15 +66,15 @@ export default function NewProjectPage() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-sm font-medium">Project name</label>
-              <Input {...form.register("name")} />
+              <Input placeholder="Acme Workflow OS" {...form.register("name")} />
             </div>
             <div>
               <label className="text-sm font-medium">Idea</label>
-              <Textarea {...form.register("idea")} />
+              <Textarea placeholder="Describe the product you want BuildOS to plan and generate." {...form.register("idea")} />
             </div>
             <div>
               <label className="text-sm font-medium">Target users</label>
-              <Input {...form.register("target_users")} />
+              <Input placeholder="Operations teams, founders, internal platform users" {...form.register("target_users")} />
             </div>
             <div>
               <label className="text-sm font-medium">Preferred stack</label>
@@ -82,7 +82,7 @@ export default function NewProjectPage() {
             </div>
             <div>
               <label className="text-sm font-medium">Required features</label>
-              <Textarea {...form.register("required_features")} />
+              <Textarea placeholder="Login, dashboard, CRUD workflows, analytics, AI assistant, admin controls, CI/CD" {...form.register("required_features")} />
             </div>
           </CardContent>
         </Card>
@@ -98,7 +98,7 @@ export default function NewProjectPage() {
               </div>
               <div>
                 <label className="text-sm font-medium">AI features</label>
-                <Input {...form.register("ai_features_required")} />
+                <Input placeholder="Summarization, classification, RAG Q&A" {...form.register("ai_features_required")} />
               </div>
               <div>
                 <label className="text-sm font-medium">Complexity</label>

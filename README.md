@@ -22,15 +22,15 @@ BuildOS behaves like an autonomous software factory:
 - Traces every agent run and agent step.
 - Uses RAG over requirements, docs, generated files, logs, and findings.
 - Requires human approval before GitHub or deployment actions.
-- Simulates GitHub PR creation and build/test pipelines in safe demo mode.
+- Creates GitHub repositories and pull requests when a provider token is connected and a human approval record exists.
 
 ## Features
 
 - Next.js App Router dashboard with landing, projects, artifact pages, code viewer, GitHub, builds, security, settings, API keys, and audit logs.
-- FastAPI backend with JWT auth, project CRUD, generation endpoints, approvals, GitHub demo mode, build reports, audit logs, request IDs, and rate limiting.
+- FastAPI backend with JWT auth, project CRUD, generation endpoints, approvals, GitHub provider workflow, build reports, audit logs, request IDs, and rate limiting.
 - SQLAlchemy models for users, organizations, projects, requirements, PRDs, architectures, tasks, generated files, agent runs, approvals, GitHub records, build reports, document chunks, audit logs, and usage costs.
 - pgvector-ready RAG memory with deterministic local embeddings for the MVP.
-- Prompt injection guard, tool allowlist, safe token placeholder storage, and explicit approval gates.
+- Prompt injection guard, tool allowlist, encrypted provider-token storage, and explicit approval gates.
 - Docker Compose stack for web, API, worker, Postgres/pgvector, and Redis.
 - GitHub Actions workflow for frontend lint/typecheck, frontend build, backend tests, and Docker build checks.
 
@@ -38,7 +38,7 @@ BuildOS behaves like an autonomous software factory:
 
 Frontend: Next.js, TypeScript, Tailwind CSS, shadcn-style UI primitives, React Hook Form, Zod, TanStack Query, Zustand, Monaco Editor, Recharts.
 
-Backend: FastAPI, Python 3.11, Pydantic, SQLAlchemy, Alembic, PostgreSQL, pgvector, Redis, worker placeholder, JWT auth.
+Backend: FastAPI, Python 3.11, Pydantic, SQLAlchemy, Alembic, PostgreSQL, pgvector, Redis, worker adapter, JWT auth.
 
 AI layer: LangGraph-ready agent orchestration, deterministic MVP agents, Gemini/OpenAI-compatible/Ollama upgrade points, pgvector RAG memory.
 
@@ -64,7 +64,7 @@ flowchart LR
   J --> K
   K --> L["Reviewer Agent"]
   L --> M["Human Approval"]
-  M --> N["GitHub PR Demo"]
+  M --> N["GitHub PR Action"]
   N --> O["Build Report"]
 ```
 
@@ -117,10 +117,7 @@ Run web:
 npm --prefix apps/web run dev
 ```
 
-Demo login:
-
-- Email: `demo@buildos.dev`
-- Password: `buildos-demo`
+Create an account at `/signup`, then sign in at `/login`.
 
 ## Environment Variables
 
@@ -194,7 +191,7 @@ Responses use:
 - Tool allowlist for safe agent actions.
 - Human approval required before GitHub writes, deployment triggers, API key updates, generated code execution, and external tool actions.
 - Audit logs for login, project creation, agent runs, file generation, approval decisions, GitHub actions, build simulations, and warnings.
-- API keys are represented with safe storage placeholders in the MVP.
+- GitHub access tokens are stored encrypted server-side.
 
 ## DevOps Pipeline
 
@@ -205,7 +202,7 @@ GitHub Actions jobs:
 - `backend-test`: FastAPI tests against Postgres/pgvector and Redis services.
 - `docker-build-check`: Compose config and image build validation.
 
-## Demo Script
+## Production Review Script
 
 Use this prompt:
 
@@ -213,18 +210,18 @@ Use this prompt:
 
 Flow:
 
-1. Login with the demo account.
-2. Open the seeded `SupportFlow AI` project or create a new one.
+1. Create an account or login.
+2. Create a new project from your own product idea.
 3. Generate PRD, architecture, tasks, and code.
 4. Inspect generated files in the Monaco code viewer.
 5. Request and approve the GitHub PR action.
-6. Create the demo PR simulation.
+6. Connect GitHub, request approval, approve the action, and create a pull request.
 7. Simulate the build pipeline.
 8. Review security warnings and audit logs.
 
 ## Future Roadmap
 
-- Replace deterministic demo agents with LangGraph provider nodes.
+- Replace local deterministic generators with provider-backed LangGraph nodes where needed.
 - Add real GitHub OAuth and repository writes after approval.
 - Add real sandboxed build runner with Firecracker or isolated containers.
 - Add OpenTelemetry traces and metrics dashboards.
@@ -237,4 +234,3 @@ Flow:
 - Implemented a FastAPI backend with JWT auth, SQLAlchemy/Postgres/pgvector schema, agent trace persistence, approval gates, audit logs, prompt-injection checks, and RAG memory.
 - Built a polished Next.js dashboard with project workflows, Monaco code viewer, Recharts readiness charts, GitHub approval UX, build logs, and security reports.
 - Designed Docker Compose and GitHub Actions pipelines for a production-style full-stack AI engineering platform.
-

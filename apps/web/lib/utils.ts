@@ -12,9 +12,8 @@ export function formatDate(value?: string | null) {
 
 export function statusTone(status?: string) {
   const normalized = (status ?? "").toLowerCase();
-  if (["passed", "approved", "completed", "ready", "created", "simulated_pr_opened"].includes(normalized)) return "success";
+  if (["passed", "approved", "completed", "ready", "created", "pull_request_opened", "repository_created"].includes(normalized)) return "success";
   if (["warning", "needs_review", "pending"].includes(normalized)) return "warning";
   if (["failed", "rejected", "error"].includes(normalized)) return "danger";
   return "neutral";
 }
-

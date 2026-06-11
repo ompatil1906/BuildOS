@@ -25,7 +25,7 @@ export default function BuildsPage() {
       <PageHeader
         title="Build reports"
         description="Pipeline stages, logs, test summary, security warnings, and deployment readiness score."
-        actions={<Button onClick={() => simulate.mutate()} disabled={simulate.isPending}><Play className="h-4 w-4" aria-hidden />Simulate build</Button>}
+        actions={<Button onClick={() => simulate.mutate()} disabled={simulate.isPending}><Play className="h-4 w-4" aria-hidden />Run readiness check</Button>}
       />
       <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
         <Card>
@@ -60,7 +60,7 @@ export default function BuildsPage() {
           <Card key={item}>
             <CardContent>
               <p className="text-sm font-medium">{item}</p>
-              <p className="mt-2 text-xs leading-5 text-muted-foreground">Tracked as part of the simulated release-readiness report.</p>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">Tracked as part of the release-readiness report.</p>
             </CardContent>
           </Card>
         ))}

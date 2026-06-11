@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Copy, Download } from "lucide-react";
 import { useMemo, useState } from "react";
+import JSZip from "jszip";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,6 +16,22 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false 
 export function CodeViewer({ files }: { files: GeneratedFile[] }) {
   const [selectedId, setSelectedId] = useState(files[0]?.id);
   const selected = useMemo(() => files.find((file) => file.id === selectedId) ?? files[0], [files, selectedId]);
+
+  async function downloadZip() {
+    const zip = new JSZip();
+    files.forEach((file) => {
+      zip.file(file.path, file.content);
+    });
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "buildos-generated-project.zip";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+  }
 
   if (!selected) {
     return <p className="text-sm text-muted-foreground">Generate code to inspect files.</p>;
@@ -52,7 +69,7 @@ export function CodeViewer({ files }: { files: GeneratedFile[] }) {
             <Button variant="secondary" size="icon" title="Copy code" onClick={() => navigator.clipboard.writeText(selected.content)}>
               <Copy className="h-4 w-4" aria-hidden />
             </Button>
-            <Button variant="secondary" size="icon" title="Download project ZIP placeholder">
+            <Button variant="secondary" size="icon" title="Download project ZIP" onClick={downloadZip}>
               <Download className="h-4 w-4" aria-hidden />
             </Button>
           </div>
@@ -70,4 +87,3 @@ export function CodeViewer({ files }: { files: GeneratedFile[] }) {
     </div>
   );
 }
-

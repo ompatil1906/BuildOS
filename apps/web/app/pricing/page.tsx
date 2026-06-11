@@ -3,10 +3,10 @@ import { ArrowRight, CheckCircle2, Code2, ShieldCheck } from "lucide-react";
 
 const tiers = [
   {
-    name: "Demo",
+    name: "Starter",
     price: "$0",
-    description: "For interview walkthroughs, local demos, and portfolio review.",
-    features: ["Seed project", "Agent traces", "Generated files", "Build simulation", "Approval workflow"]
+    description: "For local product reviews and self-hosted project generation.",
+    features: ["User-created projects", "Agent traces", "Generated files", "Build readiness report", "Approval workflow"]
   },
   {
     name: "Studio",
@@ -41,9 +41,9 @@ export default function PricingPage() {
       <section className="paper-grid border-y border-[#d8ccb3] px-6 py-20">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7c5f2a]">Pricing philosophy</p>
-          <h1 className="serif-display mt-5 max-w-4xl text-5xl font-semibold leading-tight md:text-6xl">Start with a serious demo. Grow into governed automation.</h1>
+          <h1 className="serif-display mt-5 max-w-4xl text-5xl font-semibold leading-tight md:text-6xl">Start with a serious workspace. Grow into governed automation.</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            The MVP is intentionally demo-first: it proves architecture, agent safety, DevOps readiness, and product depth without requiring paid AI or GitHub provider configuration.
+            The MVP is production-review first: it proves architecture, agent safety, DevOps readiness, and product depth while requiring explicit provider configuration for external writes.
           </p>
         </div>
       </section>
@@ -77,13 +77,13 @@ export default function PricingPage() {
             <ShieldCheck className="h-6 w-6 text-[#1b4d89]" aria-hidden />
             <h2 className="mt-5 text-2xl font-semibold">No surprise external writes</h2>
             <p className="mt-3 leading-7 text-slate-600">
-              BuildOS keeps demo mode safe by simulating GitHub and build activity until a human approval record exists. Real provider integrations are designed as an upgrade path, not a hidden default.
+              BuildOS keeps external writes controlled until a human approval record exists. Real provider integrations are explicit configuration, not a hidden default.
             </p>
           </div>
           <div className="rounded-lg border border-[#171923] bg-[#171923] p-6 text-white">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Best first demo</p>
-            <h2 className="serif-display mt-4 text-3xl font-semibold">SupportFlow AI</h2>
-            <p className="mt-3 text-sm leading-6 text-slate-300">A customer support SaaS with PRD, architecture, generated files, GitHub PR simulation, build report, security findings, and audit logs.</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f4dfad]">Best first workspace</p>
+            <h2 className="serif-display mt-4 text-3xl font-semibold">Your first generated product</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-300">Create a project, generate PRD, architecture, files, GitHub PR, build report, security findings, and audit logs from your own product idea.</p>
             <Link href="/projects/new" className="mt-6 inline-flex h-10 items-center gap-2 rounded-md bg-[#f5efe2] px-4 text-sm font-semibold text-[#171923]">
               Start Building
               <ArrowRight className="h-4 w-4" aria-hidden />

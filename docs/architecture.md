@@ -1,6 +1,6 @@
 # BuildOS Architecture
 
-BuildOS is a monorepo with a Next.js frontend, FastAPI backend, Postgres/pgvector database, Redis queue dependency, worker placeholder, Docker Compose stack, and CI workflow.
+BuildOS is a monorepo with a Next.js frontend, FastAPI backend, Postgres/pgvector database, Redis queue dependency, worker adapter, Docker Compose stack, and CI workflow.
 
 ## Runtime Components
 
@@ -12,9 +12,8 @@ BuildOS is a monorepo with a Next.js frontend, FastAPI backend, Postgres/pgvecto
 
 ## Data Flow
 
-Idea input is stored as a requirement, converted into PRD and architecture documents, decomposed into tasks, expanded into generated files, reviewed by security/reviewer agents, then gated by approval before GitHub demo actions.
+Idea input is stored as a requirement, converted into PRD and architecture documents, decomposed into tasks, expanded into generated files, reviewed by security/reviewer agents, then gated by approval before GitHub provider actions.
 
 ## Persistence
 
 Core tables cover users, projects, requirements, PRDs, architectures, tasks, generated files, agent runs, agent steps, approvals, GitHub connections, GitHub repositories, build reports, document chunks, audit logs, and usage costs.
-

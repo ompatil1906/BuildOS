@@ -13,7 +13,6 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24
     ai_provider: str = "local"
-    enable_demo_seed: bool = False
     auto_create_tables: bool = True
     gemini_api_key: str | None = None
     openai_api_key: str | None = None
@@ -40,8 +39,6 @@ class Settings(BaseSettings):
                 issues.append("Production must use PostgreSQL, not sqlite.")
             if "*" in self.allowed_origins:
                 issues.append("CORS_ORIGINS cannot include '*' in production.")
-            if self.enable_demo_seed:
-                issues.append("ENABLE_DEMO_SEED must be false in production.")
         return issues
 
 

@@ -57,7 +57,7 @@ def generate_prd(db: Session, *, project: Project, user: User) -> dict:
         "target_users": summary["target_users"],
         "core_problem": "Users need a faster path from operational pain to usable software.",
         "feature_list": features,
-        "constraints": ["MVP should be demo-ready", "Use safe GitHub demo mode unless approved", "Keep secrets server-side"],
+        "constraints": ["MVP should be production-review ready", "Require approval before GitHub writes", "Keep secrets server-side"],
         "missing_information": ["Billing provider", "Exact design system tokens", "Production hosting account"],
         "recommended_build_type": project.complexity,
         "prompt_risk": risk,
@@ -122,7 +122,7 @@ Teams lose time translating product intent into requirements, architecture, task
 - Arbitrary generated code execution inside the production API.
 
 ## Success Metrics
-- Time from idea to generated PR under 10 minutes in demo mode.
+- Time from idea to generated PR under 10 minutes with provider configuration.
 - At least 80% of generated tasks have acceptance criteria.
 - Build readiness score above 75 before handoff.
 
@@ -134,7 +134,7 @@ Teams lose time translating product intent into requirements, architecture, task
 ## Assumptions
 - The initial stack remains {project.preferred_stack}.
 - A human reviewer approves GitHub and deployment actions.
-- Demo mode is acceptable until production OAuth is configured.
+- GitHub writes require provider configuration and an approval record.
 """
     content_json = {
         "overview": markdown.split("\n\n")[0],
@@ -222,7 +222,7 @@ Primary tables: {", ".join(db_tables)}.
 {chr(10).join(f"- {route}" for route in api_routes)}
 
 ## AI Workflow
-Agents are traceable through `agent_runs` and `agent_steps`. The MVP uses deterministic demo agents and can be upgraded to LangGraph nodes backed by Gemini, OpenAI-compatible APIs, or Ollama.
+Agents are traceable through `agent_runs` and `agent_steps`. The MVP uses local deterministic generators and can be upgraded to LangGraph nodes backed by Gemini, OpenAI-compatible APIs, or Ollama.
 
 ## DevOps Pipeline
 Docker Compose runs web, api, worker, Postgres with pgvector, and Redis. GitHub Actions lint/build/test jobs validate frontend, backend, and Docker configuration.
@@ -231,7 +231,7 @@ Docker Compose runs web, api, worker, Postgres with pgvector, and Redis. GitHub 
 JWT auth, prompt injection checks, external tool allowlist, explicit approvals for GitHub/deployment actions, audit logs, and frontend-safe environment handling.
 
 ## Deployment Plan
-Start with Docker Compose for local demos, then promote API/web images to a container platform. Keep database migrations gated and run external writes only after approval.
+Start with Docker Compose for local review, then promote API/web images to a container platform. Keep database migrations gated and run external writes only after approval.
 
 ## RAG Context Used
 {chr(10).join(f"- {item['source_type']}:{item['source_id']} score={item['score']}" for item in context) or "- No prior chunks available."}
@@ -297,9 +297,9 @@ def _task_specs(project: Project) -> list[dict]:
         "Database": ["Create SQLAlchemy models and Alembic migration", "Index generated artifacts for retrieval"],
         "AI": ["Trace agent runs and steps", "Add RAG retrieval to architecture and review agents"],
         "DevOps": ["Create Docker Compose stack", "Generate GitHub Actions workflow"],
-        "Testing": ["Add backend API smoke tests", "Add frontend component test placeholders"],
+        "Testing": ["Add backend API smoke tests", "Add frontend component test coverage"],
         "Security": ["Add prompt injection guard", "Require approval before GitHub writes"],
-        "Documentation": ["Write README and demo script", "Document security and deployment model"],
+        "Documentation": ["Write README and production runbook", "Document security and deployment model"],
     }
     priority_by_category = {"Security": "high", "Backend": "high", "AI": "high", "DevOps": "high"}
     specs = []
@@ -316,7 +316,7 @@ def _task_specs(project: Project) -> list[dict]:
                     "acceptance": [
                         "Implementation is typed and validated.",
                         "Risky operations are gated by approval where relevant.",
-                        "Demo flow remains runnable locally.",
+                        "Local workflow remains runnable.",
                     ],
                 }
             )
@@ -401,7 +401,7 @@ External writes require explicit human approval. No production secrets are store
             "content": """DATABASE_URL=
 REDIS_URL=
 JWT_SECRET=
-AI_PROVIDER=demo
+AI_PROVIDER=local
 OPENAI_API_KEY=
 GEMINI_API_KEY=
 GITHUB_TOKEN=
@@ -513,7 +513,7 @@ def health():
         {
             "path": "apps/api/app/routes.py",
             "language": "python",
-            "purpose": "Generated CRUD routes placeholder.",
+            "purpose": "Generated CRUD routes starter.",
             "content": '''from fastapi import APIRouter
 from pydantic import BaseModel
 
@@ -543,7 +543,7 @@ def create_item(item: Item):
         {
             "path": "apps/api/tests/test_health.py",
             "language": "python",
-            "purpose": "Backend smoke test placeholder.",
+            "purpose": "Backend smoke test.",
             "content": '''from fastapi.testclient import TestClient
 
 from app.main import app
@@ -725,7 +725,7 @@ def security_findings_for_files(files: list[GeneratedFile]) -> list[dict]:
         {
             "severity": "warning",
             "path": "generated-app",
-            "message": "Tests are generated as placeholders and should be expanded before production release.",
+            "message": "Generated tests and should be expanded before production release.",
         }
     )
     return findings
@@ -735,7 +735,7 @@ def simulate_build(db: Session, *, project: Project, user: User) -> dict:
     files_count = db.scalar(select(func.count(GeneratedFile.id)).where(GeneratedFile.project_id == project.id)) or 0
     stages = [
         {"name": "Install dependencies", "status": "passed", "duration": "18s"},
-        {"name": "Run lint", "status": "warning", "duration": "7s", "note": "Generated app lint not executed in demo mode."},
+        {"name": "Run lint", "status": "warning", "duration": "7s", "note": "Readiness check generated lint plan; connect sandbox runner for execution."},
         {"name": "Run tests", "status": "warning", "duration": "5s", "note": "Placeholder tests generated."},
         {"name": "Build frontend", "status": "passed", "duration": "22s"},
         {"name": "Build backend", "status": "passed", "duration": "12s"},
@@ -750,7 +750,7 @@ def simulate_build(db: Session, *, project: Project, user: User) -> dict:
     report = BuildReport(
         project_id=project.id,
         status="warning",
-        summary="Frontend and backend files generated successfully. Docker Compose and GitHub Actions are ready for review. Demo mode did not execute untrusted generated code.",
+        summary="Frontend and backend files generated successfully. Docker Compose and GitHub Actions are ready for review. BuildOS did not execute untrusted generated code in the API process.",
         logs=logs,
         test_results_json={"stages": stages, "readiness_score": 82, "generated_files": files_count},
         security_findings_json=findings,

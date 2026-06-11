@@ -51,7 +51,7 @@ const projectNav = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { user, demoLogin, isAuthenticated, isLoading } = useSession();
+  const { user, isAuthenticated, isLoading } = useSession();
   const setCommandOpen = useUiStore((state) => state.setCommandOpen);
   const theme = useUiStore((state) => state.theme);
   const toggleTheme = useUiStore((state) => state.toggleTheme);
@@ -74,7 +74,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
             <div className="rounded-md border border-white/10 bg-black/20 p-3">
               <p className="text-slate-400">Mode</p>
-              <p className="mt-1 font-medium text-emerald-300">Demo safe</p>
+              <p className="mt-1 font-medium text-emerald-300">Production</p>
             </div>
             <div className="rounded-md border border-white/10 bg-black/20 p-3">
               <p className="text-slate-400">PR gate</p>
@@ -109,7 +109,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <div className="absolute bottom-4 left-3 right-3 rounded-lg border border-white/10 bg-white/[0.045] p-3">
           <p className="text-xs text-slate-400">Signed in workspace</p>
-          <p className="mt-1 truncate text-sm font-medium">{user?.name ?? "Demo builder"}</p>
+          <p className="mt-1 truncate text-sm font-medium">{user?.name ?? "Signed out"}</p>
         </div>
       </aside>
 
@@ -123,7 +123,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             Search projects, agents, files, approvals
           </button>
           <div className="hidden rounded-md border bg-card px-3 py-2 text-xs text-muted-foreground xl:block">
-            BuildOS local demo · approval gates active
+            BuildOS workspace · approval gates active
           </div>
           <Button variant="secondary" size="icon" onClick={toggleTheme} title="Toggle theme">
             {theme === "dark" ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
@@ -131,9 +131,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           {isAuthenticated ? (
             <div className="hidden rounded-md border px-3 py-2 text-sm md:block">{user?.name}</div>
           ) : (
-            <Button variant="primary" size="sm" onClick={() => demoLogin()} disabled={isLoading}>
-              Demo login
-            </Button>
+            <Link href="/login">
+              <Button variant="primary" size="sm" disabled={isLoading}>
+                Login
+              </Button>
+            </Link>
           )}
         </header>
         <main className="mx-auto w-full max-w-7xl px-4 py-7 lg:px-8">{children}</main>

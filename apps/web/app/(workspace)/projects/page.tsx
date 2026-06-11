@@ -28,7 +28,7 @@ export default function ProjectsPage() {
       />
 
       {projects.isLoading ? <p className="text-sm text-muted-foreground">Loading projects...</p> : null}
-      {projects.isError ? <EmptyState title="Authentication required" description="Use demo login in the top bar, then refresh this page." /> : null}
+      {projects.isError ? <EmptyState title="Authentication required" description="Login or create an account to manage production workspaces." /> : null}
       {projects.data?.length === 0 ? (
         <EmptyState
           title="No projects yet"
