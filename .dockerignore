@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+apps/web/node_modules
+apps/web/.next
+apps/api/venv
+apps/api/__pycache__
+__pycache__
+.pytest_cache
+*.sqlite3
+*.db
+
