@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: buildos
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildos-api
+  namespace: buildos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buildos-api
+  template:
+    metadata:
+      labels:
+        app: buildos-api
+    spec:
+      containers:
+        - name: api
+          image: buildos-api:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: buildos-api-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildos-web
+  namespace: buildos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buildos-web
+  template:
+    metadata:
+      labels:
+        app: buildos-web
+    spec:
+      containers:
+        - name: web
+          image: buildos-web:latest
+          ports:
+            - containerPort: 3000
+
