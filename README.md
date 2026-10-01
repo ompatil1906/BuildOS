@@ -1,4 +1,4 @@
-# BuildOS 
+# BuildOS  
 
 Idea to app, automatically.
 
